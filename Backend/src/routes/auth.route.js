@@ -1,8 +1,8 @@
-import exprss, { Router } from "express";
-import loginController from "../controllers/auth.controller.js";
+import express, { Router } from "express";
+import signupController from "../controllers/auth.controller.js";
 
-const route = exprss.Router();
+const route = express.Router();
 
-route.get("/login", loginController);
+route.post("/signup", signupController);
 
 export default route;
