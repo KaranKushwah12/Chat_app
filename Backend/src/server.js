@@ -1,5 +1,5 @@
-import app from "./src/app.js";
-import connectdb from "./src/db/db.js";
+import app from "./app.js";
+import connectdb from "./db/db.js";
 
 const PORT = process.env.PORT || 8080;
 
