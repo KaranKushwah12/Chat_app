@@ -1,4 +1,12 @@
-RESEND_API_KEY = re_SDLhufxQ_26fHPF4ZoksyhHXC5V68Df6b;
+import "dotenv/config";
 
-EMAIL_FROM = "karankushwah121212@gmail.com";
-EMAIL_FROM_NAME = ChatApp;
+export const ENV = {
+  PORT: process.env.PORT || 8080,
+  MONGODB_URI: process.env.MONGODB_URI,
+  JWT_SECRET: process.env.JWT_SECRET,
+
+  RESEND_API_KEY: process.env.RESEND_API_KEY,
+  EMAIL_FROM: process.env.EMAIL_FROM,
+  EMAIL_FROM_NAME: process.env.EMAIL_FROM_NAME,
+  CLIENT_URL: process.env.CLIENT_URL,
+};
