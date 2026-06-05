@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { sendWelcomeEmail } from "../emails/emailHandlers.js";
 import { generateToken } from "../lib/utils.js";
 import { ENV } from "../lib/env.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const signupController = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -61,11 +62,11 @@ export const signupController = async (req, res) => {
         },
       });
 
-      try {
-        await sendWelcomeEmail(newUser.email, newUser.fullName, ENV.CLIENT_URL);
-      } catch (emailError) {
-        console.error("Error sending welcome email:", emailError);
-      }
+      // try {
+      //   await sendWelcomeEmail(newUser.email, newUser.fullName, ENV.CLIENT_URL);
+      // } catch (emailError) {
+      //   console.error("Error sending welcome email:", emailError);
+      // }
     } else {
       res.status(400).json({ message: "Invalid user data" });
     }
@@ -120,4 +121,30 @@ export const loginController = async (req, res) => {
 export const logoutController = (_, res) => {
   res.clearCookie("token");
   res.status(200).json({ message: "Logout successful" });
+};
+
+export const updateProfilePictureController = async (req, res) => {
+  try {
+    const { profilePicture } = req.body;
+    if (!profilePicture) {
+      return res.status(400).json({ message: "Profile picture is required" });
+    }
+    const userId = req.user._id;
+
+    const uploadResult = await cloudinary.uploader.upload(profilePicture);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePicture: uploadResult.secure_url },
+      { new: true },
+    ).select("-password");
+    res
+      .status(200)
+      .json({
+        message: "Profile picture updated successfully",
+        user: updatedUser,
+      });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
