@@ -6,8 +6,12 @@ import {
   updateProfilePictureController,
 } from "../controllers/auth.controller.js";
 import { protectRoute } from "../middlewares/auth.middleware.js";
+import { arcjetProtection } from "../middlewares/arcjet.middleware.js";
 
 const route = express.Router();
+
+// Apply Arcjet protection to all routes in this router
+route.use(arcjetProtection);
 
 // Define the routes for authentication
 route.post("/signup", signupController);
