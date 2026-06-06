@@ -15,5 +15,10 @@ export const ENV = {
   // Cloudinary configuration
   CLOUDINARY_CLOUD_NAME : process.env.CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+
+
+  // Arcjet API key - to avoid many requests to the API
+  ARCJET_KEY : process.env.ARCJET_KEY,
+  ARCJET_ENV : process.env.ARCJET_ENV,
 };
